@@ -312,6 +312,7 @@ class _BasePythonVirtualenvOperator(PythonOperator, metaclass=ABCMeta):
         "ds_nodash",
         "expanded_ti_count",
         "inlets",
+        "map_index_template",
         "next_ds",
         "next_ds_nodash",
         "outlets",
@@ -935,9 +936,11 @@ class ExternalPythonOperator(_BasePythonVirtualenvOperator):
             if self.expect_airflow:
                 self.log.warning("When checking for Airflow installed in virtual environment got %s", e)
                 self.log.warning(
-                    f"This means that Airflow is not properly installed by  "
-                    f"{self.python}. Airflow context keys will not be available. "
-                    f"Please Install Airflow {airflow_version} in your environment to access them."
+                    "This means that Airflow is not properly installed by %s. "
+                    "Airflow context keys will not be available. "
+                    "Please Install Airflow %s in your environment to access them.",
+                    self.python,
+                    airflow_version,
                 )
             return None
 
